@@ -1,4 +1,4 @@
-from src import ksj
+import kokudo_suuchi as ksj
 
 # 国土数値情報APIでダウンロードできるファイル概要（pd.DataFrame）
 ksj.get_summary()
@@ -11,7 +11,6 @@ urls.head()
 # zipファイルのダウンロードと解凍
 url = urls["zipFileUrl"][0]
 ksj.download_and_unzip(url, save_path="./example/shapefile/")
-
 
 # 列名の対応表をダウンロードして結合して開く（pd.DataFrame）
 book = ksj.get_column_table()
