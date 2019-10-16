@@ -1,17 +1,37 @@
 # kokudo-suuchi-jouhou
 
-国土数値情報ダウンロードサービス Web APIの情報を取得するPythonライブラリです。
+[国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonライブラリです。
 
 
 
-## 使用法
+## Installation
 
-### 国土数値情報ダウンロードサービスが提供するデータの概要を取得する
+```
+pip install kokudo-suuchi-jouhou
+```
+
+
+
+### requirements
+
+- Python 3.6+
+- requests
+- lxml
+- xmljson
+- xlrd
+- pandas
+- geopandas
+
+
+
+## Usage
+
+### 公開データの一覧を取得する
 
 ```python
 import kokudo-suuchi-jouhou as ksj
 
-# 国土数値情報APIでダウンロードできるファイル概要（pd.DataFrame）
+# 国土数値情報APIでダウンロードできるファイルの概要一覧を取得（return: pd.DataFrame）
 ksj_summary = ksj.get_summary()
 ksj_summary.head()
 ```
@@ -41,7 +61,7 @@ urls.head()
 
 
 
-### シェープファイルのzipファイルをダウンロードして解凍する
+### シェープファイルが入ったzipファイルをダウンロードして解凍する
 
 ```python
 # shpファイルが入ったzipファイルのダウンロードと解凍
@@ -58,7 +78,7 @@ N03-190101_11_GML.zip is extracted to ./example/shapefile/
 ### シェープファイルをダウンロードして読み込む
 
 ```python
-# ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
+# ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む（return: geopandas.GeoDataFrame）
 shape_gdf = ksj.read_shp(url, silent=False)
 shape_gdf.head()
 ```
