@@ -152,7 +152,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None, silent=None) -> gpd.G
                             key=lambda k: modify_times[k], reverse=True)
     newest_mod_file = shapefiles[sorted_indices[0]]
     file_path = os.path.join(save_dir, newest_mod_file)
-    print(f"Loading a shapefile from {file_path}")
+    print(f"Reading a shapefile from {file_path}")
     shape_file = gpd.read_file(file_path)    
     if save_dir is None:
         temp_dir.cleanup()
