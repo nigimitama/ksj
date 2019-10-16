@@ -9,16 +9,16 @@ identifier = "N03"
 urls = ksj.get_url(identifier=identifier, pref_code='11-14', fiscal_year=2019)
 urls.head()
 
-# zipファイルのダウンロードと解凍
+# shpファイルが入ったzipファイルのダウンロードと解凍
 url = urls["zipFileUrl"][0]
-ksj.download_and_unzip(url, save_dir="./example/shapefile/", silent=False)
+ksj.get_shp(url, save_dir="./example/shapefile/", silent=False)
 
 # ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
 url = urls["zipFileUrl"][0]
-shape_gdf = ksj.download_and_load(url, silent=False)
+shape_gdf = ksj.read_shp(url, silent=False)
 shape_gdf.head()
 
-# 簡単に自動変換できる列名（年度によって意味が変わらない列）に限り、列名を日本語に変換
+# 簡単に自動変換できる列名（年度によって意味が変わることのない列）に限り、列名を日本語に変換
 shape_gdf = ksj.translate(shape_gdf)
 shape_gdf.head()
 
