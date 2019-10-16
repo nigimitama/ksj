@@ -1,4 +1,4 @@
-import kokudo_suuchi_jouhou as ksj
+import ksj
 
 # 国土数値情報APIでダウンロードできるファイル概要（return: pd.DataFrame）
 ksj_summary = ksj.get_summary()

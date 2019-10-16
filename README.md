@@ -26,11 +26,16 @@ pip install kokudo-suuchi-jouhou
 
 ## Usage
 
+インポート時はksjと書いてください
+
+```python
+import ksj
+```
+
+
 ### 公開データの一覧を取得する
 
 ```python
-import kokudo-suuchi-jouhou as ksj
-
 # 国土数値情報APIでダウンロードできるファイルの概要一覧を取得（return: pd.DataFrame）
 ksj_summary = ksj.get_summary()
 ksj_summary.head()
