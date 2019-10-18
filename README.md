@@ -2,29 +2,24 @@
 
 [国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonライブラリです。
 
+Rの[kokudosuuchi](https://github.com/yutannihilation/kokudosuuchi)パッケージを参考にしています。
 
 
-## Installation
+
+## インストール
 
 ```
 pip install kokudo-suuchi-jouhou
 ```
 
-
-
-### requirements
+### 必要環境
 
 - Python 3.6+
-- requests
-- lxml
-- xmljson
-- xlrd
-- pandas
 - geopandas
 
+⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipでインストールできないため、先にそちらをインストールする必要があります。
 
-
-## Usage
+## 使用方法
 
 インポート時はksjと書いてください
 
@@ -144,3 +139,12 @@ shape_gdf.head()
 |    2 |     埼玉県 |   None | さいたま市 |       北区 |          11102 | POLYGON ((139.61753 35.96486, 139.61798 35.964... |
 |    3 |     埼玉県 |   None | さいたま市 |     大宮区 |          11103 | POLYGON ((139.63768 35.92278, 139.63804 35.922... |
 |    4 |     埼玉県 |   None | さいたま市 |     見沼区 |          11104 | POLYGON ((139.66718 35.96444, 139.66739 35.964... |
+
+
+
+## 利用上の注意
+
+APIの利用やAPIで得られる国土数値情報の利用にあたっては、国土数値情報ダウンロードサービスの利用約款および同Web APIの利用規約をご確認の上ご利用ください。
+
+- http://nlftp.mlit.go.jp/ksj/other/yakkan.html
+- http://nlftp.mlit.go.jp/ksj/api/about_api.html
