@@ -9,4 +9,8 @@ jobs:
 
       - run:
           name: Install
-          command: pip3 install kokudo-suuchi-jouhou
+          command: sudo pip3 install kokudo-suuchi-jouhou
+      - run: echo $(ls -la)
+      - run:
+	  name: Test
+	  command: python3 tests/unittest.py
