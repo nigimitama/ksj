@@ -1,0 +1,12 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6
+
+    steps:
+      - checkout
+
+      - run:
+        name: Install
+        command: pip3 install kokudo-suuchi-jouhou
