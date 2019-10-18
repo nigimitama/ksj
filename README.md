@@ -14,14 +14,14 @@ pip install kokudo-suuchi-jouhou
 
 ### 必要環境
 
+依存ライブラリのうち特に注意が必要なのは以下の2点です。
+
 - Python 3.6+
 - geopandas
 
-⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipでインストールできないため、先にそちらをインストールする必要があります。
+⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipでインストールできないため、先にそちらをインストールする必要があります。ご注意ください。
 
 ## 使用方法
-
-インポート時はksjと書いてください
 
 ```python
 import ksj
