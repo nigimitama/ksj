@@ -1,5 +1,9 @@
 # kokudo-suuchi-jouhou
 
+[![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)
+
+
+
 [国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonライブラリです。
 
 Rの[kokudosuuchi](https://github.com/yutannihilation/kokudosuuchi)パッケージを参考にしています。
@@ -14,14 +18,14 @@ pip install kokudo-suuchi-jouhou
 
 ### 必要環境
 
+依存ライブラリのうち特に注意が必要なのは以下の2点です。
+
 - Python 3.6+
 - geopandas
 
-⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipでインストールできないため、先にそちらをインストールする必要があります。
+⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipでインストールできないため、先にそちらをインストールする必要があります。ご注意ください。
 
 ## 使用方法
-
-インポート時はksjと書いてください
 
 ```python
 import ksj

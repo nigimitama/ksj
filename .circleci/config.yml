@@ -8,5 +8,9 @@ jobs:
       - checkout
 
       - run:
-        name: Install
-        command: pip3 install kokudo-suuchi-jouhou
+          name: Install
+          command: sudo pip3 install kokudo-suuchi-jouhou
+
+      - run:
+          name: Test
+          command: python3 tests/test.py
