@@ -1,6 +1,6 @@
 import unittest
-from ksj import kokudo_suuchi_jouhou as ksj
-
+import ksj
+import numpy
 
 class TestGetSummary(unittest.TestCase):
     """test of get_summary()"""
