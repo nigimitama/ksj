@@ -1,6 +1,7 @@
 import unittest
 import ksj
-import numpy
+print(f"ksj version: {ksj.__version__}")
+
 
 class TestGetSummary(unittest.TestCase):
     """test of get_summary()"""
