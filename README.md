@@ -66,12 +66,14 @@ urls.head()
 
 
 
-### シェープファイルが入ったzipファイルをダウンロードして解凍する
+### シェープファイルが入ったzipファイルをダウンロード
+
+国土数値情報ダウンロードサービスからシェープファイルが入ったzipファイルをダウンロードします。
 
 ```python
-# shpファイルが入ったzipファイルのダウンロードと解凍
+# シェープファイルが入ったzipファイルのダウンロード（unzip=Trueの場合、解凍も行う）
 url = urls["zipFileUrl"][0]
-ksj.get_shp(url, save_path="./shapefile/")
+ksj.get_shp(url, save_path="./shapefile/", unzip=False)
 ```
 
 ```
@@ -83,7 +85,7 @@ N03-190101_11_GML.zip is extracted to ./example/shapefile/
 ### シェープファイルをダウンロードして読み込む
 
 ```python
-# ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む（return: geopandas.GeoDataFrame）
+# ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
 shape_gdf = ksj.read_shp(url, silent=False)
 shape_gdf.head()
 ```
