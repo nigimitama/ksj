@@ -11,7 +11,7 @@ print(urls.head())
 
 # shpファイルが入ったzipファイルのダウンロード
 url = urls["zipFileUrl"][0]
-print(ksj.get_shp(url, save_dir="./shapefile", silent=False))
+print(ksj.get_shp(url, save_dir="./shapefile", silent=False, unzip=False))
 
 # ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
 url = urls["zipFileUrl"][0]
