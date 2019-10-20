@@ -7,8 +7,10 @@ import xmljson
 def get_summary() -> pd.DataFrame:
     """国土数値情報の概要情報（取得できるデータ一覧）を取得する
 
-    Returns:
-        国土数値情報APIで取得できるデータの一覧(pandas.DataFrame)
+    Returns
+    -------
+    pandas.DataFrame
+        国土数値情報APIで取得できるデータの一覧
     """
     # const params（2019年現在この値以外を受け付けない）
     app_id = "ksjapibeta1"
@@ -38,14 +40,23 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
             metro_area=None, fiscal_year=None) -> pd.DataFrame:
     """国土数値情報のURL情報を取得する
 
-    Args:
-        identifier (str): ファイルの識別子（例：「地価公示」なら'L01'）
-        pref_code (str or int): 都道府県コード（例：13, '11,12', '11-14'）
-        mesh_code (str or int): メッシュコード。areaType=4の場合のみ有効。（例：5340）
-        metro_area (str or int): 都市圏コード。areaType=2の場合のみ有効。（例：100）
-        fiscal_year (str or int): 年度。（例：2017, '2014-2016'）
-    Returns:
-        データの情報とzipファイルのURLが記載されたpandas.DataFrame
+    Parameters
+    ----------
+    identifier : str
+        ファイルの識別子（例：「地価公示」なら'L01'）
+    pref_code : str, int
+        都道府県コード（例：13, '11,12', '11-14'）
+    mesh_code : str, int
+        メッシュコード。areaType=4の場合のみ有効。（例：5340）
+    metro_area : str, int
+        都市圏コード。areaType=2の場合のみ有効。（例：100）
+    fiscal_year : str, int
+        年度。（例：2017, '2015,2019', '2014-2016'）
+    
+    Returns
+    -------
+    pandas.DataFrame
+        データの情報とzipファイルのURLが入ったデータフレーム
     """
     # const params
     app_id = "ksjapibeta1"

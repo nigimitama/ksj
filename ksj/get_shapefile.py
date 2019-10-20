@@ -9,20 +9,27 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
             unzip=False, silent=False):
     """指定したURLのzipファイルを指定フォルダにダウンロードする。
 
-    Args:
-        file_url (str): 国土数値情報ダウンロードサービスが提供するzipファイルのURL
-        save_dir (str): 保存先ディレクトリのパス
-        save_file_name (str): 保存するzipファイルの名前（任意）
-        unzip (bool): Trueの場合、zipファイルの解凍まで行います。
-        silent (bool): Trueの場合、「どのファイルをどこに解凍したか」という表示を無効にします。
+    Parameters
+    ----------
+    file_url : str
+        国土数値情報ダウンロードサービスが提供するzipファイルのURL
+    save_dir : str
+        保存先ディレクトリのパス
+    save_file_name : str
+        保存するzipファイルの名前（任意）
+    unzip : bool
+        Trueの場合、zipファイルの解凍まで行います。
+    silent : bool
+        Trueの場合、「どのファイルをどこに解凍したか」という表示を無効にします。
 
-    Returns:
-        None
+    Returns
+    -------
+    None
     """
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    save_file_name = os.path.basename(
-        file_url) if save_file_name is None else save_file_name
+    if save_file_name is None:
+        save_file_name = os.path.basename(file_url)
     save_path = os.path.join(save_dir, save_file_name)
     urlretrieve(url=file_url, filename=save_path)
     if not silent:

@@ -55,10 +55,14 @@ def translate(data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     列名の対応表をダウンロードし、自動変換できる列
     （年度によって意味が変わらない列）は列名を変換する。
 
-    Args:
-        data (geopandas.GeoDataFrame): 読み込んだシェープファイル
-    Returns:
-        geopandas.GeoDataFrame
+    Parameters
+    ----------
+    data : geopandas.GeoDataFrame
+        国土数値情報ダウンロードサービスから取得されたシェープファイル
+
+    Returns
+    -------
+    geopandas.GeoDataFrame
     """
     # 列名の対応表をダウンロードして結合して開く
     book = get_column_table()
