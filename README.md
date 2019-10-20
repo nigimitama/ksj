@@ -31,7 +31,6 @@ pip install kokudo-suuchi-jouhou
 import ksj
 ```
 
-
 ### 公開データの一覧を取得する
 
 ```python
@@ -49,6 +48,8 @@ ksj_summary.head()
 |    4 |        A12 |           農業地域 | 国土（水・土地） | 土地利用 |        3 |
 
 ### シェープファイルのURLを取得する
+
+指定できるパラメータの詳細については国土数値情報APIの[公式ドキュメント](http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf)（pdf）をご参照ください 。
 
 ```python
 # 国土数値情報のzipファイルのURLを取得（return: pd.DataFrame）

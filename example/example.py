@@ -9,7 +9,7 @@ identifier = "N03"
 urls = ksj.get_url(identifier=identifier, pref_code='11-14', fiscal_year=2019)
 print(urls.head())
 
-# shpファイルが入ったzipファイルのダウンロードと解凍
+# shpファイルが入ったzipファイルのダウンロード
 url = urls["zipFileUrl"][0]
 print(ksj.get_shp(url, save_dir="./shapefile", silent=False))
 
