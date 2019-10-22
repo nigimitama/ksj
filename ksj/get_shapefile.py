@@ -91,15 +91,15 @@ def read_shp(file_url, save_dir=None,
     shapefiles = [file_name for file_name in file_names if ".shp" in file_name]
     if len(shapefiles) > 1:
         # 複数.shpがある場合、更新日時が最新のものを使う
-        modify_times = [os.lstat(shapefile).st_mtime for shapefile in shapefiles]
+        modify_times = [os.lstat(shp).st_mtime for shp in shapefiles]
         sorted_indices = sorted(range(len(modify_times)),
                                 key=lambda k: modify_times[k], reverse=True)
         shapefile = shapefiles[sorted_indices[0]]
     else:
         shapefile = shapefiles[0]
-    file_path = os.path.join(save_dir, shapefile)
-    print(f"Reading a shapefile from {file_path}")
-    shape_file = gpd.read_file(file_path)
+    if not silent:
+        print(f"Reading a shapefile from {shapefile}")
+    shape_file = gpd.read_file(shapefile)
     if save_dir is None:
         temp_dir.cleanup()
     return shape_file
