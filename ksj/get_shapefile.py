@@ -16,11 +16,11 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
     save_dir : str
         保存先ディレクトリのパス
     save_file_name : str
-        保存するzipファイルの名前（任意）
+        保存するzipファイルの名前
     unzip : bool
         Trueの場合、zipファイルの解凍まで行います。
     silent : bool
-        Trueの場合、「どのファイルをどこに解凍したか」という表示を無効にします。
+        Trueの場合、ファイルをどこに解凍したかについての表示を無効にします。
 
     Returns
     -------
@@ -35,26 +35,37 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
     if not silent:
         print(f"{save_file_name} is saved at {save_dir}")
     if unzip:
+        name_without_extension = os.path.splitext(save_file_name)[0]
+        extract_dir = os.path.join(save_dir, name_without_extension)
+        if not os.path.exists(extract_dir):
+            os.mkdir(extract_dir)
         with zipfile.ZipFile(save_path) as existing_zip:
-            existing_zip.extractall(save_dir)
+            existing_zip.extractall(extract_dir)
         if not silent:
-            print(f"{save_file_name} is extracted to {save_dir}")
+            print(f"{save_file_name} is extracted to {extract_dir}")
 
 
 def read_shp(file_url, save_dir=None,
-             save_file_name=None, silent=False) -> gpd.GeoDataFrame:
+             save_file_name=None, silent=True) -> gpd.GeoDataFrame:
     """
-    指定したURLのzipファイルを指定フォルダあるいは
-    一時フォルダにダウンロードし、解凍してgeopandasで開く
+    指定したURLのzipファイルを指定フォルダあるいは一時フォルダにダウンロードし、
+    解凍してgeopandasで開く
 
-    Args:
-        file_url (str): 国土数値情報ダウンロードサービスが提供するzipファイルのURL
-        save_dir (str): 保存先ディレクトリのパス
-        save_file_name (str): 保存するzipファイルの名前（任意）
-        silent (bool): Trueの場合、「どのファイルをどこに解凍したか」という表示を無効にします。
+    Parameters
+    ----------
+    file_url : str
+        国土数値情報ダウンロードサービスが提供するzipファイルのURL
+    save_dir : str
+        保存先ディレクトリのパス
+    save_file_name : str
+        保存するzipファイルの名前（任意）
+    silent : bool
+        Trueの場合、ファイルをどこに解凍したかについての表示を無効にします。
 
-    Returns:
-        シェープファイルのデータ（geopandas.GeoDataFrame）
+    Returns
+    -------
+    geopandas.GeoDataFrame
+        シェープファイルのデータ
     """
     if save_file_name is None:
         save_file_name = os.path.basename(file_url)
@@ -64,20 +75,29 @@ def read_shp(file_url, save_dir=None,
     elif not os.path.exists(save_dir):
         os.mkdir(save_dir)
     save_path = os.path.join(save_dir, save_file_name)
+    # download
     urlretrieve(url=file_url, filename=save_path)
-    if not silent:
-        print(f"{save_file_name} is extracted to {save_dir}")
-    # extract to save_dir
+    # unzip
+    name_without_extension = os.path.splitext(save_file_name)[0]
+    extract_dir = os.path.join(save_dir, name_without_extension)
+    if not os.path.exists(extract_dir):
+        os.mkdir(extract_dir)
     with zipfile.ZipFile(save_path) as existing_zip:
-        existing_zip.extractall(save_dir)
+        existing_zip.extractall(extract_dir)
+    if not silent:
+        print(f"{save_file_name} is extracted to {extract_dir}")
     # load
-    file_names = _get_files(save_dir)
+    file_names = _get_files(extract_dir)
     shapefiles = [file_name for file_name in file_names if ".shp" in file_name]
-    modify_times = [os.lstat(shapefile).st_mtime for shapefile in shapefiles]
-    sorted_indices = sorted(range(len(modify_times)),
-                            key=lambda k: modify_times[k], reverse=True)
-    newest_mod_file = shapefiles[sorted_indices[0]]
-    file_path = os.path.join(save_dir, newest_mod_file)
+    if len(shapefiles) > 1:
+        # 複数.shpがある場合、更新日時が最新のものを使う
+        modify_times = [os.lstat(shapefile).st_mtime for shapefile in shapefiles]
+        sorted_indices = sorted(range(len(modify_times)),
+                                key=lambda k: modify_times[k], reverse=True)
+        shapefile = shapefiles[sorted_indices[0]]
+    else:
+        shapefile = shapefiles[0]
+    file_path = os.path.join(save_dir, shapefile)
     print(f"Reading a shapefile from {file_path}")
     shape_file = gpd.read_file(file_path)
     if save_dir is None:
