@@ -1,5 +1,7 @@
 import unittest
 import ksj
+import os
+
 print(f"ksj version: {ksj.__version__}")
 
 
@@ -48,6 +50,37 @@ class TestGetUrl(unittest.TestCase):
         actual = urls
         expected = None
         self.assertEqual(expected, actual)
+
+
+class TestGetShp(unittest.TestCase):
+
+    def test_zip(self):
+        # 正常系、unzip = False
+        url = "http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_12_GML.zip"
+        save_dir = "tests/shapefile"
+        ksj.get_shp(url, save_dir=save_dir, unzip=False)
+        has_zip = os.path.basename(url) in os.listdir(save_dir)
+        name_without_extension = os.path.splitext(os.path.basename(url))[0]
+        extract_path = os.path.join(save_dir, name_without_extension)
+        is_extracted = os.path.exists(extract_path)
+        self.assertTrue(has_zip)
+        self.assertFalse(is_extracted)
+    
+    
+    def test_unzip(self):
+        # 正常系、unzip = True
+        url = 'http://nlftp.mlit.go.jp/ksj/gml/data/A30a5/A30a5-11/A30a5-11_5340-jgd_GML.zip'
+        save_dir = "tests/shapefile"
+        ksj.get_shp(url, save_dir=save_dir, unzip=True)
+        has_zip = os.path.basename(url) in os.listdir(save_dir)
+        name_without_extension = os.path.splitext(os.path.basename(url))[0]
+        extract_path = os.path.join(save_dir, name_without_extension)
+        is_extracted = os.path.exists(extract_path)
+        has_shp = [f for f in os.listdir(extract_path) if ".shp" in f]
+        self.assertTrue(has_zip)
+        self.assertTrue(is_extracted)
+        self.assertTrue(len(has_shp) > 0)
+
 
 
 class TestReadShp(unittest.TestCase):

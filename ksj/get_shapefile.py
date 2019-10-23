@@ -3,6 +3,7 @@ import tempfile
 import zipfile
 from urllib.request import urlretrieve
 import geopandas as gpd
+import re
 
 
 def get_shp(file_url: str, save_dir: str, save_file_name=None,
@@ -30,6 +31,8 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
         os.mkdir(save_dir)
     if save_file_name is None:
         save_file_name = os.path.basename(file_url)
+    elif re.search("(.zip)$", save_file_name) is None:
+        save_file_name += ".zip"
     save_path = os.path.join(save_dir, save_file_name)
     urlretrieve(url=file_url, filename=save_path)
     if not silent:
