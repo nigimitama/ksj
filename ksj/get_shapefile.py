@@ -48,10 +48,11 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
             print(f"{save_file_name} is extracted to {extract_dir}")
 
 
-def read_shp(file_url, save_dir=None, save_file_name=None, verbose=1):
+def read_shp(file_url, save_dir=None, save_file_name=None,
+             return_type='auto', verbose=1):
     """
     指定したURLのzipファイルを指定フォルダあるいは一時フォルダにダウンロードし、
-    解凍してgeopandasで開く
+    解凍してgeopandasで開く。複数ある場合はリストで返す。
 
     Parameters
     ----------
@@ -61,8 +62,12 @@ def read_shp(file_url, save_dir=None, save_file_name=None, verbose=1):
         保存先ディレクトリのパス
     save_file_name : str
         保存するzipファイルの名前（任意）
+    return_type : str
+        返り値の型を指定します。（default = "auto"）
+        "auto"の場合、zipファイル内のシェープファイルが1つならGeoDataFrame、複数ならGeoDataFrameのlistで返します。
+        "list"の場合、常にGeoDataFrameのリストを返します。
     verbose : int
-        メソッドの動作の様子を表示する度合い。
+        メソッドの動作の様子を表示する度合いを指定します。
         0の場合、一切の表示を無効にします。
         1の場合、読み込み失敗など例外的な状況になった場合のみ表示を行います。
         2の場合、ファイルをどこに解凍したかについての表示を行います。
@@ -70,8 +75,11 @@ def read_shp(file_url, save_dir=None, save_file_name=None, verbose=1):
     Returns
     -------
     geopandas.GeoDataFrame or list
-        シェープファイルのデータ（複数ある場合はリストで返す）
+        読み込んだシェープファイルのデータ。
+        一つのzipファイルに複数のシェープファイルがある場合、GeoDataFrameをリストに入れて返します。
     """
+    if (return_type != "auto") and (return_type != "list"):
+        raise NameError("'return_type' must be 'auto' or 'list'")
     if save_file_name is None:
         save_file_name = os.path.basename(file_url)
     if save_dir is None:
@@ -92,37 +100,47 @@ def read_shp(file_url, save_dir=None, save_file_name=None, verbose=1):
     if verbose >= 2:
         print(f"{save_file_name} is extracted to {extract_dir}")
     # load
-    file_names = _get_files(extract_dir)
-    shapefiles = [f for f in file_names if ".shp" in f]
-    geojesons = [f for f in file_names if ".geojson" in f]
+    file_pathes = _get_files(extract_dir)
+    shapefiles = [f for f in file_pathes if ".shp" in f]
     if len(shapefiles) == 0:
         if verbose >= 1:
             print("shapefile not found")
     else:
-        shape_files = []
-        for shapefile in shapefiles:
-            if verbose >= 2:
-                print(f"reading a shapefile from {shapefile}")
-            try:
-                shape_file = gpd.read_file(shapefile)
-            except AttributeError:  # A16-15_00_DID.shpはAttributeErrorで開けない
-                if verbose >= 1:
-                    print(f"cannot read {shapefile}")
-                    shape_file = None
-                if len(geojesons) > 0:
-                    file_name = os.path.splitext(os.path.basename(shapefile))[0]
-                    same_name_geojsons = [f for f in geojesons if file_name in f]
-                    gdfs = []
-                    for geojson in same_name_geojsons:
-                        if verbose >= 1:
-                            print(f"trying to read {geojson} ...")
-                        gdfs.append(gpd.read_file(geojson))
-                    shape_file = gdfs[0] if (len(gdfs) == 0) else gdfs
-            shape_files.append(shape_file)
-        shape_file = shape_files[0] if (len(shape_files) == 0) else shape_files
+        shape_files = [_read_geofile(shp, verbose) for shp in shapefiles]
+        if (len(shape_files) == 0) and (return_type != "list"):
+            shape_files = shape_files[0]
+        else:
+            if verbose >= 1:
+                print("multiple shapefiles found, return as list")
     if save_dir is None:
         temp_dir.cleanup()
-    return shape_file
+    return shape_files
+
+
+def _read_geofile(file_path: str, verbose=1) -> gpd.GeoDataFrame:
+    """
+    geopandasで開ける地理データを読み込む
+    既知の破損により読み込めないshpファイルは、同名のgeojsonがある場合そちらを読み込む
+    """
+    try:
+        if verbose >= 2:
+            print(f"reading a shapefile from {file_path}")
+        gdf = gpd.read_file(file_path)
+    except AttributeError:
+        # A16-15_00_DID.shpはAttributeErrorで開けないが、同名のgeojsonは開ける
+        # shpファイルと同名のgeojsonが同梱されているzipが124個ある
+        if verbose >= 1:
+            print(f"cannot read {file_path}")
+        same_name_geojson = file_path.replace(".shp", ".geojson")
+        if os.path.exists(same_name_geojson):
+            if verbose >= 1:
+                print(f"{same_name_geojson} found, trying to read it...")
+            gdf = gpd.read_file(same_name_geojson)
+            if verbose >= 1:
+                print(f"done!")
+        else:
+            gdf = None
+    return gdf
 
 
 # def read_gdf(file_path: str, verbose: int) -> gpd.GeoDataFrame:
