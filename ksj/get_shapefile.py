@@ -100,8 +100,8 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     if verbose >= 2:
         print(f"{save_file_name} is extracted to {extract_dir}")
     # load
-    file_pathes = _get_files(extract_dir)
-    shapefiles = [f for f in file_pathes if ".shp" in f]
+    file_paths = _get_files(extract_dir)
+    shapefiles = [f for f in file_paths if ".shp" in f]
     if len(shapefiles) == 0:
         if verbose >= 1:
             print("shapefile not found")
@@ -125,7 +125,7 @@ def _read_geofile(file_path: str, verbose=1) -> gpd.GeoDataFrame:
     try:
         if verbose >= 2:
             print(f"reading a shapefile from {file_path}")
-        gdf = gpd.read_file(file_path)
+        gdf = gpd.read_file(file_path, encoding="CP932")
     except AttributeError:
         # A16-15_00_DID.shpはAttributeErrorで開けないが、同名のgeojsonは開ける
         # shpファイルと同名のgeojsonが同梱されているzipが124個ある
@@ -135,7 +135,7 @@ def _read_geofile(file_path: str, verbose=1) -> gpd.GeoDataFrame:
         if os.path.exists(same_name_geojson):
             if verbose >= 1:
                 print(f"{same_name_geojson} found, trying to read it...")
-            gdf = gpd.read_file(same_name_geojson)
+            gdf = gpd.read_file(same_name_geojson, encoding="CP932")
             if verbose >= 1:
                 print(f"done!")
         else:
@@ -143,37 +143,8 @@ def _read_geofile(file_path: str, verbose=1) -> gpd.GeoDataFrame:
     return gdf
 
 
-# def read_gdf(file_path: str, verbose: int) -> gpd.GeoDataFrame:
-#     """
-#     概要：まず.shpファイルを開こうとし、もしそれが失敗したらgeojsonを読み込む
-#     背景：A16-15_00_DID.shpはAttributeErrorで開けないが、同名のgeojsonが入っていてそちらは開ける
-
-#     file_path: shapefile path
-#     """
-#     try:
-#         shapefile = gpd.read_file(file_path)
-#     except AttributeError:
-#         if verbose >= 1:
-#             print(f"cannot read {file_path}")
-#         file_name = os.path.splitext(os.path.basename(file_path))
-
-#         if len(geojesons) > 0:
-#             geojeson = geojesons[0]
-#             if verbose >= 1:
-#                 print(f"trying to read {geojeson} ...")
-#             gdfs = [gpd.read_file(f) for f in geojesons]
-#             shape_file = gdfs[0] if (len(gdfs) == 0) else gdfs
-
-#     return shapefile
-
-
-# def _print_if(condition, text):
-#     """if文＋print文を1行で書くための関数"""
-#     if condition:
-#         print(text)
-
 def _get_files(path: str) -> list:
-    """get file pathes recursively"""
+    """get file paths recursively"""
     file_names = []
     for (root, _, files) in os.walk(path):
         for f in files:
