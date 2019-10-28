@@ -86,14 +86,10 @@ N03-190101_11_GML.zip is saved at ./shapefile
 
 ```python
 # ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
-shape_gdf = ksj.read_shp(url, silent=False)
+shape_gdf = ksj.read_shp(url)
 shape_gdf.head()
 ```
 
-```
-N03-190101_11_GML.zip is extracted to /tmp/tmpz45y9u8o
-Reading a shapefile from /tmp/tmpz45y9u8o/N03-19_11_190101.shp
-```
 
 |      | N03_001 | N03_002 |    N03_003 | N03_004 | N03_007 |                                          geometry |
 | ---: | ------: | ------: | ---------: | ------: | ------: | ------------------------------------------------: |
@@ -104,26 +100,6 @@ Reading a shapefile from /tmp/tmpz45y9u8o/N03-19_11_190101.shp
 |    4 |  埼玉県 |    None | さいたま市 |  見沼区 |   11104 | POLYGON ((139.66718 35.96444, 139.66739 35.964... |
 
 
-
-
-
-### 列名の対応表をダウンロードして開く
-
-- http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls に列名の対応表の.xlsファイルが公開されているので、それを取得してpandasで読み込みます。
-
-```python
-# 列名の対応表をダウンロードして結合して開く（return: pd.DataFrame）
-book = ksj.get_column_table()
-book.head()
-```
-
-|      | 識別子 |          データ項目 |                     タグ名 | 対応番号 |            属性名 |      |
-| ---: | -----: | ------------------: | -------------------------: | -------: | ----------------: | ---: |
-|    0 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_001 | 3次メッシュコード |  NaN |
-|    1 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_002 |   3次メッシュ面積 |  NaN |
-|    2 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_003 |    農業地域の面積 |  NaN |
-|    3 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_004 |    森林地域の面積 |  NaN |
-|    4 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_005 |  都市計画区域面積 |  NaN |
 
 
 
@@ -146,6 +122,26 @@ shape_gdf.head()
 |    2 |     埼玉県 |   None | さいたま市 |       北区 |          11102 | POLYGON ((139.61753 35.96486, 139.61798 35.964... |
 |    3 |     埼玉県 |   None | さいたま市 |     大宮区 |          11103 | POLYGON ((139.63768 35.92278, 139.63804 35.922... |
 |    4 |     埼玉県 |   None | さいたま市 |     見沼区 |          11104 | POLYGON ((139.66718 35.96444, 139.66739 35.964... |
+
+
+
+### 列名の対応表をダウンロードして開く
+
+- http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls に列名の対応表の.xlsファイルが公開されているので、それを取得してpandasで読み込みます。
+
+```python
+# 列名の対応表をダウンロードして結合して開く（return: pd.DataFrame）
+book = ksj.get_column_table()
+book.head()
+```
+
+|      | 識別子 |          データ項目 |                     タグ名 | 対応番号 |            属性名 |      |
+| ---: | -----: | ------------------: | -------------------------: | -------: | ----------------: | ---: |
+|    0 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_001 | 3次メッシュコード |  NaN |
+|    1 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_002 |   3次メッシュ面積 |  NaN |
+|    2 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_003 |    農業地域の面積 |  NaN |
+|    3 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_004 |    森林地域の面積 |  NaN |
+|    4 |  A02-a | 指定地域3次メッシュ | DesignatedAreaTertiaryMesh | A02a_005 |  都市計画区域面積 |  NaN |
 
 
 
