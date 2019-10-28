@@ -65,8 +65,7 @@ class TestGetShp(unittest.TestCase):
         is_extracted = os.path.exists(extract_path)
         self.assertTrue(has_zip)
         self.assertFalse(is_extracted)
-    
-    
+
     def test_unzip(self):
         # 正常系、unzip = True
         url = 'http://nlftp.mlit.go.jp/ksj/gml/data/A30a5/A30a5-11/A30a5-11_5340-jgd_GML.zip'
@@ -82,18 +81,24 @@ class TestGetShp(unittest.TestCase):
         self.assertTrue(len(has_shp) > 0)
 
 
-
 class TestReadShp(unittest.TestCase):
 
-    def test_read_shp(self):
-        # 正常な入力
+    # TODO: 複数のshpが入ったzipの場合や、return_typeを変えたときの挙動
+    def test_n03(self):
         url = "http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_12_GML.zip"
         gdf = ksj.read_shp(url)
         actual = gdf.shape
         expected = (1525, 6)
         self.assertEqual(expected, actual)
 
-        # 正常な入力
+    def test_n03_list(self):
+        url = "http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_12_GML.zip"
+        gdf = ksj.read_shp(url, return_type="list")
+        actual = type(gdf)
+        expected = list
+        self.assertEqual(expected, actual)
+
+    def test_a30(self):
         url = 'http://nlftp.mlit.go.jp/ksj/gml/data/A30a5/A30a5-11/A30a5-11_5340-jgd_GML.zip'
         gdf = ksj.read_shp(url)
         actual = gdf.shape

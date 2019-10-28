@@ -7,7 +7,7 @@ import re
 
 
 def get_shp(file_url: str, save_dir: str, save_file_name=None,
-            unzip=False, silent=False):
+            unzip=False, verbose=1):
     """指定したURLのzipファイルを指定フォルダにダウンロードする。
 
     Parameters
@@ -20,8 +20,10 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
         保存するzipファイルの名前
     unzip : bool
         Trueの場合、zipファイルの解凍まで行います。
-    silent : bool
-        Trueの場合、ファイルをどこに解凍したかについての表示を無効にします。
+    verbose : int
+        メソッドの動作の様子を表示する度合いを指定します。
+        0の場合、一切の表示を無効にします。
+        1の場合、ファイルをどこに解凍したかについての表示を行います。
 
     Returns
     -------
@@ -35,7 +37,7 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
         save_file_name += ".zip"
     save_path = os.path.join(save_dir, save_file_name)
     urlretrieve(url=file_url, filename=save_path)
-    if not silent:
+    if verbose > 0:
         print(f"{save_file_name} is saved at {save_dir}")
     if unzip:
         name_without_extension = os.path.splitext(save_file_name)[0]
@@ -47,7 +49,7 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
             for info in existing_zip.infolist():
                 info.filename = info.filename.encode('cp437').decode('cp932')
                 existing_zip.extract(info, path=extract_dir)
-        if not silent:
+        if verbose > 0:
             print(f"{save_file_name} is extracted to {extract_dir}")
 
 
@@ -113,11 +115,10 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
             print("shapefile not found")
     else:
         shape_files = [_read_geofile(shp, verbose) for shp in shapefiles]
-        if (len(shape_files) == 0) and (return_type != "list"):
+        if (len(shape_files) >= 2) and (verbose >= 1):
+            print("multiple shapefiles found, return as list")
+        if (len(shape_files) == 1) and (return_type != "list"):
             shape_files = shape_files[0]
-        else:
-            if verbose >= 1:
-                print("multiple shapefiles found, return as list")
     if save_dir is None:
         temp_dir.cleanup()
     return shape_files

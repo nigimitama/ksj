@@ -11,11 +11,11 @@ print(urls.head())
 
 # shpファイルが入ったzipファイルのダウンロード
 url = urls["zipFileUrl"][0]
-ksj.get_shp(url, save_dir="./shapefile", silent=False, unzip=False)
+ksj.get_shp(url, save_dir="./shapefile", unzip=False)
 
 # ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
 url = urls["zipFileUrl"][0]
-shape_gdf = ksj.read_shp(url, silent=False)
+shape_gdf = ksj.read_shp(url)
 print(shape_gdf.head())
 
 # 簡単に自動変換できる列名（年度によって意味が変わることのない列）に限り、列名を日本語に変換
