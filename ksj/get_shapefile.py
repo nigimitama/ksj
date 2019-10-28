@@ -43,7 +43,10 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
         if not os.path.exists(extract_dir):
             os.mkdir(extract_dir)
         with zipfile.ZipFile(save_path) as existing_zip:
-            existing_zip.extractall(extract_dir)
+            # 文字化け回避のため変換処理を逐次挟む
+            for info in existing_zip.infolist():
+                info.filename = info.filename.encode('cp437').decode('cp932')
+                existing_zip.extract(info, path=extract_dir)
         if not silent:
             print(f"{save_file_name} is extracted to {extract_dir}")
 
@@ -96,12 +99,15 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     if not os.path.exists(extract_dir):
         os.mkdir(extract_dir)
     with zipfile.ZipFile(save_path) as existing_zip:
-        existing_zip.extractall(extract_dir)
+        # 文字化け回避のため変換処理を逐次挟む
+        for info in existing_zip.infolist():
+            info.filename = info.filename.encode('cp437').decode('cp932')
+            existing_zip.extract(info, path=extract_dir)
     if verbose >= 2:
         print(f"{save_file_name} is extracted to {extract_dir}")
     # load
     file_paths = _get_files(extract_dir)
-    shapefiles = [f for f in file_paths if ".shp" in f]
+    shapefiles = [f for f in file_paths if f.endswith(".shp")]
     if len(shapefiles) == 0:
         if verbose >= 1:
             print("shapefile not found")
