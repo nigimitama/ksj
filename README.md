@@ -83,7 +83,7 @@ ksj.get_shp(url, save_path="./shapefile", unzip=False)
 ```
 
 ```
-N03-190101_11_GML.zip is saved at ./shapefile
+N03-190101_11_GML.zip was saved at ./shapefile
 ```
 
 

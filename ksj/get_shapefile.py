@@ -38,7 +38,7 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
     save_path = os.path.join(save_dir, save_file_name)
     urlretrieve(url=file_url, filename=save_path)
     if verbose > 0:
-        print(f"{save_file_name} is saved at {save_dir}")
+        print(f"{save_file_name} was saved at {save_dir}")
     if unzip:
         name_without_extension = os.path.splitext(save_file_name)[0]
         extract_dir = os.path.join(save_dir, name_without_extension)
@@ -50,7 +50,7 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
                 info.filename = info.filename.encode('cp437').decode('cp932')
                 existing_zip.extract(info, path=extract_dir)
         if verbose > 0:
-            print(f"{save_file_name} is extracted to {extract_dir}")
+            print(f"{save_file_name} was extracted to {extract_dir}")
 
 
 def read_shp(file_url, save_dir=None, save_file_name=None,
@@ -106,7 +106,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
             info.filename = info.filename.encode('cp437').decode('cp932')
             existing_zip.extract(info, path=extract_dir)
     if verbose >= 2:
-        print(f"{save_file_name} is extracted to {extract_dir}")
+        print(f"{save_file_name} was extracted to {extract_dir}")
     # load
     file_paths = _get_files(extract_dir)
     shapefiles = [f for f in file_paths if f.endswith(".shp")]
@@ -144,7 +144,7 @@ def _read_geofile(file_path: str, verbose=1) -> gpd.GeoDataFrame:
                 print(f"{same_name_geojson} found, trying to read it...")
             gdf = gpd.read_file(same_name_geojson, encoding="CP932")
             if verbose >= 1:
-                print(f"done!")
+                print(f"finished.")
         else:
             gdf = None
     return gdf
