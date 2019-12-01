@@ -6,32 +6,29 @@
 
 [国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonライブラリです。
 
-Rの[kokudosuuchi](https://github.com/yutannihilation/kokudosuuchi)パッケージを参考にしています。
-
-
+データ分析での利用を想定しており、本ライブラリのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
 
 ## インストール
 
 ### 必要環境
 
-ご注意いただきたいのは以下の2点です。
-
 - Python 3.6以上
-- geopandas
 
-⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、先にそちらをインストールする必要があります。ご注意ください。
-
-UNIX系OSの場合、`pip install kokudo-suuchi-jouhou`だけでgeopandasもインストールされます。
 
 ### インストール方法
+
+⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。**ご注意ください。
+
+UNIX系OSの場合、`pip install kokudo-suuchi-jouhou`だけでgeopandasもインストールされます。
 
 ```
 pip install kokudo-suuchi-jouhou
 ```
 
+
 ## 使用方法
 
-import時は`ksj`で呼び出します。
+import時は`ksj`と書いてください。
 
 ```python
 import ksj
@@ -111,9 +108,9 @@ shape_gdf.head()
 
 ### 列名を日本語に変換する
 
-簡単に自動変換できる列名（年度によって意味が変化していない列）に限り、列名を日本語に変換します。
+列名を`N03_001`のようなコードから日本語の列名へと変換します。
 
-（N04 道路密度・道路延長メッシュ、L01 地価公示、L02 都道府県地価調査などはデータの年度によって列名の意味が変化するため対応していません。分析者ご自身が対応表をダウンロードして閲覧しながら変換されることをおすすめします。）
+年度によって列名の意味が変化する列についてはまだ対応できておりません。その場合は変換されず、元の列名のままになります。
 
 ```python
 # 列名を日本語に変換
@@ -157,3 +154,5 @@ APIの利用やAPIで得られる国土数値情報の利用にあたっては�
 
 - http://nlftp.mlit.go.jp/ksj/other/yakkan.html
 - http://nlftp.mlit.go.jp/ksj/api/about_api.html
+
+
