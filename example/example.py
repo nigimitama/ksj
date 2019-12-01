@@ -18,7 +18,7 @@ url = urls["zipFileUrl"][0]
 shape_gdf = ksj.read_shp(url)
 print(shape_gdf.head())
 
-# 簡単に自動変換できる列名（年度によって意味が変わることのない列）に限り、列名を日本語に変換
+# 列名を日本語に変換
 shape_gdf = ksj.translate(shape_gdf)
 print(shape_gdf.head())
 

@@ -50,10 +50,7 @@ def _get_content_start_row_index(table: list) -> int:
 
 
 def translate(data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
-    """自動変換できる列に限り、列名を変換する
-
-    列名の対応表をダウンロードし、自動変換できる列
-    （年度によって意味が変わらない列）は列名を変換する。
+    """年度によって意味が変わらない列についてのみ列名を変換する。
 
     Parameters
     ----------
@@ -66,8 +63,8 @@ def translate(data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     """
     # 列名の対応表をダウンロードして結合して開く
     book = get_column_table()
-    # 重複がない＝年度ごとに意味が変わったりしない、自動変換できる列名
-    unique_cols = book.drop_duplicates("対応番号", keep=False)[["対応番号", "属性名"]].T
+    # TODO: 2713列中2470列をこれで対応できるが、残り243列（年度によって意味が変わる列コード）は今後対応する
+    unique_cols = book[["対応番号", "属性名"]].drop_duplicates().T
     unique_cols.columns = unique_cols.loc["対応番号", :]
     unique_cols = unique_cols.drop("対応番号", axis=0)
     rename_dict = unique_cols.to_dict(orient="index")["属性名"]
