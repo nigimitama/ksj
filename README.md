@@ -17,7 +17,7 @@
 
 ### インストール方法
 
-⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。**ご注意ください。
+⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。** ご注意ください。
 
 UNIX系OSの場合、`pip install kokudo-suuchi-jouhou`だけでgeopandasもインストールされます。
 
