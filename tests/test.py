@@ -2,6 +2,7 @@ import unittest
 import ksj
 import os
 
+
 print(f"ksj version: {ksj.__version__}")
 
 
