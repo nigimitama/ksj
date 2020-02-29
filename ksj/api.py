@@ -1,7 +1,15 @@
 import pandas as pd
-import requests
 from lxml import etree
 import xmljson
+from urllib.request import Request, urlopen
+from urllib.parse import urlencode
+
+
+def get_request(url: str, params: dict) -> bytes:
+    """リクエストパラメータ付きでGETリクエストを送る"""
+    req = Request(f"{api_url}?{urlencode(params)}")
+    with urlopen(req) as res:
+        return res.read()
 
 
 def get_summary() -> pd.DataFrame:
@@ -18,10 +26,10 @@ def get_summary() -> pd.DataFrame:
     data_format = 1
     # set url and params
     api_url = "http://nlftp.mlit.go.jp/ksj/api/1.0b/index.php/app/getKSJSummary.xml"
-    # 仕様書では'dataFormat'なのだが、実際は'dataformat'に送らないとエラーになる
+    # NOTE: 仕様書では'dataFormat'なのだが、実際は'dataformat'に送らないとエラーになる
     params = {"appId": app_id, "lang": lang, "dataformat": data_format}
     # request
-    response = requests.get(api_url, params=params)
+    response = get_request(api_url, params=params)
     root = etree.fromstring(response.content)
     # convert xml to dict
     data_dict = xmljson.yahoo.data(root)
@@ -75,7 +83,7 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
     if fiscal_year:
         params["fiscalyear"] = fiscal_year
     # request
-    response = requests.get(api_url, params=params)
+    response = get_request(api_url, params=params)
     if response.status_code != 200:
         print(f"Error! status code {response.status_code}")
         return None
