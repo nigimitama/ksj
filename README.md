@@ -1,4 +1,4 @@
-# ksj
+# ksj: Kokudo Suuchi Jouhou API Client
 
 [![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)
 
@@ -6,11 +6,25 @@
 
 データ分析での利用を想定しており、本ライブラリのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
 
+
+
 ## インストール
 
 ### 必要環境
 
 - Python 3.6以上
+
+
+
+### 依存ライブラリ
+
+本ライブラリは以下のライブラリを使用します。
+
+    lxml>=4.4.0
+    xmljson>=0.2.0
+    xlrd>=1.2.0
+    geopandas>=0.6.0
+
 
 
 ### インストール方法
@@ -24,13 +38,14 @@ pip install ksj
 ```
 
 
-## 使用方法
 
-import時は`ksj`と書いてください。
+## 使用方法
 
 ```python
 import ksj
 ```
+
+
 
 ### 公開データの一覧を取得する
 
@@ -47,6 +62,8 @@ ksj_summary.head()
 |    2 |        A10 |       自然公園地域 |             地域 | 保護保全 |        3 |
 |    3 |        A11 |       自然保全地域 |             地域 | 保護保全 |        3 |
 |    4 |        A12 |           農業地域 | 国土（水・土地） | 土地利用 |        3 |
+
+
 
 ### シェープファイルのURLを取得する
 
@@ -108,7 +125,7 @@ shape_gdf.head()
 
 列名を`N03_001`のようなコードから日本語の列名へと変換します。
 
-年度によって列名の意味が変化する列についてはまだ対応できておりません。その場合は変換されず、元の列名のままになります。
+年度によって列名の意味が変化する列（全体の１割程度）についてはまだ対応できておりません。その場合は変換されず、元の列名のままになります。
 
 ```python
 # 列名を日本語に変換
