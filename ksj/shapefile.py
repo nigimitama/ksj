@@ -116,7 +116,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     else:
         shape_files = [_read_geofile(shp, verbose) for shp in shapefiles]
         if (len(shape_files) >= 2) and (verbose >= 1):
-            print("multiple shapefiles found, return as list")
+            print("multiple shapefiles are found, return as list")
         if (len(shape_files) == 1) and (return_type != "list"):
             shape_files = shape_files[0]
     if save_dir is None:
