@@ -2,15 +2,18 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.6-jessie
 
     steps:
       - checkout
 
       - run:
-          name: Install
-          command: sudo pip3 install ksj
-          
+          name: Setup
+          command: |
+            sudo apt install git
+            git clone https://github.com/nigimitama/ksj
+            cd ksj
+
       - run:
           name: Test
           command: python3 tests/test.py
