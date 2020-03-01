@@ -1,9 +1,10 @@
 import unittest
-import ksj
+import sys
 import os
-
-
-print(f"ksj version: {ksj.__version__}")
+sys.path.append(os.path.abspath("."))
+import ksj
+print(ksj)
+# print(f"ksj version: {ksj.__version__}")
 
 
 class TestGetSummary(unittest.TestCase):
