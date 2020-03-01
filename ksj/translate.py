@@ -64,9 +64,9 @@ def translate(data: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
     # 列名の対応表をダウンロードして結合して開く
     book = get_column_table()
     # TODO: 2713列中2470列をこれで対応できるが、残り243列（年度によって意味が変わる列コード）は今後対応する
-    unique_cols = book[["対応番号", "属性名"]].drop_duplicates().T
-    unique_cols.columns = unique_cols.loc["対応番号", :]
-    unique_cols = unique_cols.drop("対応番号", axis=0)
-    rename_dict = unique_cols.to_dict(orient="index")["属性名"]
+    unique_cols = book[["対応番号", "属性名"]].drop_duplicates()
+    codes = list(unique_cols["対応番号"])
+    names = list(unique_cols["属性名"])
+    rename_dict = dict(zip(codes, names))
     # rename
     return data.rename(columns=rename_dict)
