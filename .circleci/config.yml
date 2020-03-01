@@ -9,5 +9,7 @@ jobs:
 
       - run:
           name: Test
-          command: python3 tests/test.py
+          command: |
+            pip3 install -r requirements.txt
+            python3 tests/test.py
 

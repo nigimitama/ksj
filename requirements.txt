@@ -1,0 +1,4 @@
+lxml>=4.4.0
+xmljson>=0.2.0
+xlrd>=1.2.0
+geopandas>=0.6.0
