@@ -8,12 +8,6 @@ jobs:
       - checkout
 
       - run:
-          name: Setup
-          command: |
-            git clone https://github.com/nigimitama/ksj.git
-            cd ksj
-
-      - run:
           name: Test
           command: python3 tests/test.py
 
