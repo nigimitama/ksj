@@ -70,7 +70,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     return_type : str
         返り値の型を指定します。（default = "auto"）
         "auto"の場合、zipファイル内のシェープファイルが1つならGeoDataFrame、複数ならGeoDataFrameのlistで返します。
-        "list"の場合、常にGeoDataFrameのリストを返します。
+        "list"の場合、常にGeoDataFrameのlistを返します。
     verbose : int
         メソッドの動作の様子を表示する度合いを指定します。
         0の場合、一切の表示を無効にします。
@@ -81,7 +81,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     -------
     geopandas.GeoDataFrame or list
         読み込んだシェープファイルのデータ。
-        一つのzipファイルに複数のシェープファイルがある場合、GeoDataFrameをリストに入れて返します。
+        一つのzipファイルに複数のシェープファイルがある場合、GeoDataFrameをlistに入れて返します。
     """
     if (return_type != "auto") and (return_type != "list"):
         raise NameError("'return_type' must be 'auto' or 'list'")
