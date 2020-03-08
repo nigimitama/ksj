@@ -24,4 +24,3 @@ ksj.translate module
    :members:
    :undoc-members:
    :show-inheritance:
-
