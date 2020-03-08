@@ -28,6 +28,18 @@ def get_summary() -> pd.DataFrame:
     -------
     pandas.DataFrame
         国土数値情報APIで取得できるデータの一覧
+    
+    Example
+    -------
+    >>> import ksj
+    >>> ksj_summary = ksj.get_summary()
+    >>> ksj_summary.head()
+    identifier      title    field1 field2 areaType
+    0        A03  三大都市圏計画区域      政策区域   大都市圏        2
+    1        A09       都市地域  国土（水・土地）   土地利用        3
+    2        A10     自然公園地域        地域   保護保全        3
+    3        A11     自然保全地域        地域   保護保全        3
+    4        A12       農業地域  国土（水・土地）   土地利用        3
     """
     # const params（2019年現在この値以外を受け付けない）
     app_id = "ksjapibeta1"
@@ -77,6 +89,17 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
     -------
     pandas.DataFrame
         データの情報とzipファイルのURLが入ったデータフレーム
+    
+    Example
+    -------
+    >>> import ksj
+    >>> urls = ksj.get_url(identifier="N03", pref_code='11-14', fiscal_year=2019)
+    >>> urls.head()
+    identifier title field  year areaType areaCode datum                                         zipFileUrl zipFileSize
+    0        N03  行政区域  政策区域  2019        3       11     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      3.54MB
+    1        N03  行政区域  政策区域  2019        3       12     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      6.17MB
+    2        N03  行政区域  政策区域  2019        3       13     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...     12.20MB
+    3        N03  行政区域  政策区域  2019        3       14     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      5.22MB
     """
     # const params
     app_id = "ksjapibeta1"
@@ -110,6 +133,6 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
         return None
     else:
         # convert dict to pd.DataFrame
-        data_df = pd.io.json.json_normalize(
+        data_df = pd.json_normalize(
             data_dict["KSJ_URL_INF"]["KSJ_URL"]["item"])
         return data_df
