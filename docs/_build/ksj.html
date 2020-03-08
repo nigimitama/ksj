@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Installation Guide" href="install.html" /> 
+    <link rel="prev" title="Installation" href="install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,7 +81,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ksj package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ksj.api">ksj.api module</a></li>
@@ -177,7 +177,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ksj</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ksj_summary</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">get_summary</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ksj_summary</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">identifier      title    field1 field2 areaType</span>
+<span class="go">  identifier      title    field1 field2 areaType</span>
 <span class="go">0        A03  三大都市圏計画区域      政策区域   大都市圏        2</span>
 <span class="go">1        A09       都市地域  国土（水・土地）   土地利用        3</span>
 <span class="go">2        A10     自然公園地域        地域   保護保全        3</span>
@@ -212,7 +212,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ksj</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">urls</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">get_url</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="s2">&quot;N03&quot;</span><span class="p">,</span> <span class="n">pref_code</span><span class="o">=</span><span class="s1">&#39;11-14&#39;</span><span class="p">,</span> <span class="n">fiscal_year</span><span class="o">=</span><span class="mi">2019</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">urls</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">identifier title field  year areaType areaCode datum                                         zipFileUrl zipFileSize</span>
+<span class="go">  identifier title field  year areaType areaCode datum                                         zipFileUrl zipFileSize</span>
 <span class="go">0        N03  行政区域  政策区域  2019        3       11     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      3.54MB</span>
 <span class="go">1        N03  行政区域  政策区域  2019        3       12     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      6.17MB</span>
 <span class="go">2        N03  行政区域  政策区域  2019        3       13     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...     12.20MB</span>
@@ -226,18 +226,13 @@
 <span id="ksj-shapefile-module"></span><h2>ksj.shapefile module<a class="headerlink" href="#module-ksj.shapefile" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="ksj.shapefile.get_shp">
-<code class="sig-prename descclassname">ksj.shapefile.</code><code class="sig-name descname">get_shp</code><span class="sig-paren">(</span><em class="sig-param">url: str</em>, <em class="sig-param">save_dir: str</em>, <em class="sig-param">save_name=None</em>, <em class="sig-param">unzip=False</em>, <em class="sig-param">verbose=1</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ksj.shapefile.get_shp" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ksj.shapefile.</code><code class="sig-name descname">get_shp</code><span class="sig-paren">(</span><em class="sig-param">url: str</em>, <em class="sig-param">path: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#ksj.shapefile.get_shp" title="Permalink to this definition">¶</a></dt>
 <dd><p>指定したURLのzipファイルを指定フォルダにダウンロードする。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>str</em>) – 国土数値情報ダウンロードサービスが提供するzipファイルのURL</p></li>
-<li><p><strong>save_dir</strong> (<em>str</em>) – 保存先ディレクトリのパス</p></li>
-<li><p><strong>save_name</strong> (<em>str</em>) – 保存するzipファイルの名前</p></li>
-<li><p><strong>unzip</strong> (<em>bool</em>) – Trueの場合、zipファイルの解凍まで行います。</p></li>
-<li><p><strong>verbose</strong> (<em>int</em>) – メソッドの動作の様子を表示する度合いを指定します。
-0の場合、一切の表示を無効にします。
-1の場合、ファイルをどこに解凍したかについての表示を行います。</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – 保存先のパス</p></li>
 </ul>
 </dd>
 </dl>
@@ -245,22 +240,17 @@
 
 <dl class="function">
 <dt id="ksj.shapefile.read_shp">
-<code class="sig-prename descclassname">ksj.shapefile.</code><code class="sig-name descname">read_shp</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">save_dir=None</em>, <em class="sig-param">save_name=None</em>, <em class="sig-param">return_type='auto'</em>, <em class="sig-param">verbose=1</em><span class="sig-paren">)</span><a class="headerlink" href="#ksj.shapefile.read_shp" title="Permalink to this definition">¶</a></dt>
-<dd><p>指定したURLのzipファイルを指定フォルダあるいは一時フォルダにダウンロードし、
-解凍してgeopandasで開く。複数ある場合はリストで返す。</p>
+<code class="sig-prename descclassname">ksj.shapefile.</code><code class="sig-name descname">read_shp</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">return_type='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#ksj.shapefile.read_shp" title="Permalink to this definition">¶</a></dt>
+<dd><p>指定したURLのシェープファイルを取得して読み込む。</p>
+<p>指定したURLのzipファイルを一時フォルダにダウンロードし、解凍してGeoDataFrameで開く。
+稀に一つのzipファイルに複数のシェープファイルが含まれるものもあるが、その場合はGeoDataFrameのリストで返す。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>url</strong> (<em>str</em>) – 国土数値情報ダウンロードサービスが提供するzipファイルのURL</p></li>
-<li><p><strong>save_dir</strong> (<em>str</em>) – 保存先ディレクトリのパス</p></li>
-<li><p><strong>save_name</strong> (<em>str</em>) – 保存するzipファイルの名前（任意）</p></li>
 <li><p><strong>return_type</strong> (<em>str</em>) – 返り値の型を指定します。（default = “auto”）
 “auto”の場合、zipファイル内のシェープファイルが1つならGeoDataFrame、複数ならGeoDataFrameのlistで返します。
 “list”の場合、常にGeoDataFrameのlistを返します。</p></li>
-<li><p><strong>verbose</strong> (<em>int</em>) – メソッドの動作の様子を表示する度合いを指定します。
-0の場合、一切の表示を無効にします。
-1の場合、読み込み失敗など例外的な状況になった場合のみ表示を行います。
-2の場合、ファイルをどこに解凍したかについての表示を行います。</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -277,7 +267,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="n">urls</span><span class="p">[</span><span class="s1">&#39;zipFileUrl&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">read_shp</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">N03_001 N03_002 N03_003 N03_004 N03_007                                           geometry</span>
+<span class="go">  N03_001 N03_002 N03_003 N03_004 N03_007                                           geometry</span>
 <span class="go">0     東京都    None    None    千代田区   13101  POLYGON ((139.77287 35.70370, 139.77279 35.703...</span>
 <span class="go">1     東京都    None    None     中央区   13102  POLYGON ((139.78341 35.69645, 139.78459 35.696...</span>
 <span class="go">2     東京都    None    None      港区   13103  POLYGON ((139.77129 35.62841, 139.77128 35.628...</span>
@@ -371,7 +361,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="install.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

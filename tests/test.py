@@ -41,8 +41,8 @@ class TestGetUrl(unittest.TestCase):
         """準正常系: invalid input"""
         urls = ksj.get_url(identifier="L01", pref_code='11, 12',
                            fiscal_year='2018, 2019')
-        actual = None
-        expected = (4, 9)
+        actual = urls
+        expected = None
         self.assertEqual(expected, actual)
 
     def test_mesh_code(self):
