@@ -19,7 +19,7 @@ def get_summary() -> pd.DataFrame:
     >>> import ksj
     >>> ksj_summary = ksj.get_summary()
     >>> ksj_summary.head()
-    identifier      title    field1 field2 areaType
+      identifier      title    field1 field2 areaType
     0        A03  三大都市圏計画区域      政策区域   大都市圏        2
     1        A09       都市地域  国土（水・土地）   土地利用        3
     2        A10     自然公園地域        地域   保護保全        3
@@ -80,7 +80,7 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
     >>> import ksj
     >>> urls = ksj.get_url(identifier="N03", pref_code='11-14', fiscal_year=2019)
     >>> urls.head()
-    identifier title field  year areaType areaCode datum                                         zipFileUrl zipFileSize
+      identifier title field  year areaType areaCode datum                                         zipFileUrl zipFileSize
     0        N03  行政区域  政策区域  2019        3       11     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      3.54MB
     1        N03  行政区域  政策区域  2019        3       12     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      6.17MB
     2        N03  行政区域  政策区域  2019        3       13     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...     12.20MB
