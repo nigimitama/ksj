@@ -6,17 +6,17 @@ import geopandas as gpd
 import re
 
 
-def get_shp(file_url: str, save_dir: str, save_file_name=None,
-            unzip=False, verbose=1):
+def get_shp(url: str, save_dir: str, save_name=None,
+            unzip=False, verbose=1) -> None:
     """指定したURLのzipファイルを指定フォルダにダウンロードする。
 
     Parameters
     ----------
-    file_url : str
+    url : str
         国土数値情報ダウンロードサービスが提供するzipファイルのURL
     save_dir : str
         保存先ディレクトリのパス
-    save_file_name : str
+    save_name : str
         保存するzipファイルの名前
     unzip : bool
         Trueの場合、zipファイルの解凍まで行います。
@@ -24,23 +24,19 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
         メソッドの動作の様子を表示する度合いを指定します。
         0の場合、一切の表示を無効にします。
         1の場合、ファイルをどこに解凍したかについての表示を行います。
-
-    Returns
-    -------
-    None
     """
     if not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    if save_file_name is None:
-        save_file_name = os.path.basename(file_url)
-    elif re.search("(.zip)$", save_file_name) is None:
-        save_file_name += ".zip"
-    save_path = os.path.join(save_dir, save_file_name)
-    urlretrieve(url=file_url, filename=save_path)
+    if save_name is None:
+        save_name = os.path.basename(url)
+    elif re.search("(.zip)$", save_name) is None:
+        save_name += ".zip"
+    save_path = os.path.join(save_dir, save_name)
+    urlretrieve(url=url, filename=save_path)
     if verbose > 0:
-        print(f"{save_file_name} was saved at {save_dir}")
+        print(f"{save_name} was saved at {save_dir}")
     if unzip:
-        name_without_extension = os.path.splitext(save_file_name)[0]
+        name_without_extension = os.path.splitext(save_name)[0]
         extract_dir = os.path.join(save_dir, name_without_extension)
         if not os.path.exists(extract_dir):
             os.mkdir(extract_dir)
@@ -50,10 +46,10 @@ def get_shp(file_url: str, save_dir: str, save_file_name=None,
                 info.filename = info.filename.encode('cp437').decode('cp932')
                 existing_zip.extract(info, path=extract_dir)
         if verbose > 0:
-            print(f"{save_file_name} was extracted to {extract_dir}")
+            print(f"{save_name} was extracted to {extract_dir}")
 
 
-def read_shp(file_url, save_dir=None, save_file_name=None,
+def read_shp(url, save_dir=None, save_name=None,
              return_type='auto', verbose=1):
     """
     指定したURLのzipファイルを指定フォルダあるいは一時フォルダにダウンロードし、
@@ -61,11 +57,11 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
 
     Parameters
     ----------
-    file_url : str
+    url : str
         国土数値情報ダウンロードサービスが提供するzipファイルのURL
     save_dir : str
         保存先ディレクトリのパス
-    save_file_name : str
+    save_name : str
         保存するzipファイルの名前（任意）
     return_type : str
         返り値の型を指定します。（default = "auto"）
@@ -82,21 +78,35 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
     geopandas.GeoDataFrame or list
         読み込んだシェープファイルのデータ。
         一つのzipファイルに複数のシェープファイルがある場合、GeoDataFrameをlistに入れて返します。
+    
+    Example
+    -------
+    >>> import ksj
+    >>> urls = ksj.get_url(identifier='N03', pref_code='13', fiscal_year=2019)
+    >>> url = urls['zipFileUrl'][0]
+    >>> shape_gdf = ksj.read_shp(url)
+    >>> shape_gdf.head()
+    N03_001 N03_002 N03_003 N03_004 N03_007                                           geometry
+    0     東京都    None    None    千代田区   13101  POLYGON ((139.77287 35.70370, 139.77279 35.703...
+    1     東京都    None    None     中央区   13102  POLYGON ((139.78341 35.69645, 139.78459 35.696...
+    2     東京都    None    None      港区   13103  POLYGON ((139.77129 35.62841, 139.77128 35.628...
+    3     東京都    None    None      港区   13103  POLYGON ((139.76689 35.62774, 139.76718 35.627...
+    4     東京都    None    None      港区   13103  POLYGON ((139.77022 35.63199, 139.77046 35.631...
     """
     if (return_type != "auto") and (return_type != "list"):
         raise NameError("'return_type' must be 'auto' or 'list'")
-    if save_file_name is None:
-        save_file_name = os.path.basename(file_url)
+    if save_name is None:
+        save_name = os.path.basename(url)
     if save_dir is None:
         temp_dir = tempfile.TemporaryDirectory()
         save_dir = temp_dir.name
     elif not os.path.exists(save_dir):
         os.mkdir(save_dir)
-    save_path = os.path.join(save_dir, save_file_name)
+    save_path = os.path.join(save_dir, save_name)
     # download
-    urlretrieve(url=file_url, filename=save_path)
+    urlretrieve(url=url, filename=save_path)
     # unzip
-    name_without_extension = os.path.splitext(save_file_name)[0]
+    name_without_extension = os.path.splitext(save_name)[0]
     extract_dir = os.path.join(save_dir, name_without_extension)
     if not os.path.exists(extract_dir):
         os.mkdir(extract_dir)
@@ -106,7 +116,7 @@ def read_shp(file_url, save_dir=None, save_file_name=None,
             info.filename = info.filename.encode('cp437').decode('cp932')
             existing_zip.extract(info, path=extract_dir)
     if verbose >= 2:
-        print(f"{save_file_name} was extracted to {extract_dir}")
+        print(f"{save_name} was extracted to {extract_dir}")
     # load
     file_paths = _get_files(extract_dir)
     shapefiles = [f for f in file_paths if f.endswith(".shp")]

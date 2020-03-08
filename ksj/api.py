@@ -6,21 +6,6 @@ from urllib.parse import urlencode
 from urllib.error import HTTPError, URLError
 
 
-def _get_request(url: str, params: dict) -> list:
-    """リクエストパラメータ付きでGETリクエストを送る"""
-    url = url + "?" + urlencode(params)
-    response, error = None, None
-    try:
-        req = Request(url)
-        with urlopen(req) as res:
-            response = res.read()
-    except HTTPError as e:
-        error = e
-    except URLError as e:
-        error = e
-    return response, error
-
-
 def get_summary() -> pd.DataFrame:
     """国土数値情報の概要情報（取得できるデータ一覧）を取得する
 
@@ -41,7 +26,7 @@ def get_summary() -> pd.DataFrame:
     3        A11     自然保全地域        地域   保護保全        3
     4        A12       農業地域  国土（水・土地）   土地利用        3
     """
-    # const params（2019年現在この値以外を受け付けない）
+    # const params（2020年現在この値以外を受け付けない）
     app_id = "ksjapibeta1"
     lang = "J"
     data_format = 1
@@ -63,7 +48,7 @@ def get_summary() -> pd.DataFrame:
         print(error_msg)
     else:
         # convert dict to pd.DataFrame
-        data_df = pd.io.json.json_normalize(
+        data_df = pd.json_normalize(
             data_dict["KSJ_SUMMARY_INF"]["KSJ_SUMMARY"]["item"])
     return data_df
 
@@ -136,3 +121,18 @@ def get_url(identifier: str, pref_code=None, mesh_code=None,
         data_df = pd.json_normalize(
             data_dict["KSJ_URL_INF"]["KSJ_URL"]["item"])
         return data_df
+
+
+def _get_request(url: str, params: dict) -> list:
+    """リクエストパラメータ付きでGETリクエストを送る"""
+    url = url + "?" + urlencode(params)
+    response, error = None, None
+    try:
+        req = Request(url)
+        with urlopen(req) as res:
+            response = res.read()
+    except HTTPError as e:
+        error = e
+    except URLError as e:
+        error = e
+    return response, error

@@ -91,7 +91,7 @@ urls.head()
 ```python
 # シェープファイルが入ったzipファイルのダウンロード（unzip=Trueの場合、解凍も行う）
 url = urls["zipFileUrl"][0]
-ksj.get_shp(url, save_path="./shapefile", unzip=False)
+ksj.get_shp(url, save_dir="./shapefile", unzip=False)
 ```
 
 ```
