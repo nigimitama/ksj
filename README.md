@@ -2,9 +2,9 @@
 
 [![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)
 
-[国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonライブラリです。
+[国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に使うためのPythonパッケージです。
 
-データ分析での利用を想定しており、本ライブラリのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
+データ分析での利用を想定しており、本パッケージのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
 
 
 
@@ -16,9 +16,9 @@
 
 
 
-### 依存ライブラリ
+### 依存パッケージ
 
-本ライブラリは以下のライブラリを使用します。
+本パッケージは以下のパッケージを使用します。
 
     lxml>=4.4.0
     xmljson>=0.2.0
@@ -29,7 +29,7 @@
 
 ### インストール方法
 
-⚠️Windowsの場合[geopandasの依存ライブラリ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。** ご注意ください。
+⚠️Windowsの場合[geopandasの依存パッケージ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。** ご注意ください。
 
 UNIX系OSの場合、`pip install ksj`だけでgeopandasもインストールされます。
 
@@ -89,13 +89,9 @@ urls.head()
 国土数値情報ダウンロードサービスからシェープファイルが入ったzipファイルをダウンロードします。
 
 ```python
-# シェープファイルが入ったzipファイルのダウンロード（unzip=Trueの場合、解凍も行う）
+# シェープファイルが入ったzipファイルのダウンロード
 url = urls["zipFileUrl"][0]
-ksj.get_shp(url, save_dir="./shapefile", unzip=False)
-```
-
-```
-N03-190101_11_GML.zip was saved at ./shapefile
+ksj.get_shp(url, path="./shapefile")
 ```
 
 
@@ -103,7 +99,7 @@ N03-190101_11_GML.zip was saved at ./shapefile
 ### シェープファイルをダウンロードして読み込む
 
 ```python
-# ファイルを指定フォルダあるいは一時フォルダにダウンロードし、解凍してgeopandasで読み込む
+# ファイルをダウンロードし、解凍してgeopandasで読み込む
 shape_gdf = ksj.read_shp(url)
 shape_gdf.head()
 ```
@@ -116,8 +112,6 @@ shape_gdf.head()
 |    2 |  埼玉県 |    None | さいたま市 |    北区 |   11102 | POLYGON ((139.61753 35.96486, 139.61798 35.964... |
 |    3 |  埼玉県 |    None | さいたま市 |  大宮区 |   11103 | POLYGON ((139.63768 35.92278, 139.63804 35.922... |
 |    4 |  埼玉県 |    None | さいたま市 |  見沼区 |   11104 | POLYGON ((139.66718 35.96444, 139.66739 35.964... |
-
-
 
 
 

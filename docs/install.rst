@@ -10,7 +10,7 @@ Installation
 
 .. note::
 
-   ⚠️Windowsの場合 `geopandasの依存ライブラリ <https://geopandas.org/install.html#installing-with-pip>`__ がpipではインストールできないため、先にそちらをインストールする必要があります。 ご注意ください。
+   ⚠️Windowsの場合 `geopandasの依存パッケージ <https://geopandas.org/install.html#installing-with-pip>`__ がpipではインストールできないため、先にそちらをインストールする必要があります。 ご注意ください。
 
 UNIX系OSの場合、pip install ksjだけでgeopandasもインストールされます。
 
@@ -20,9 +20,9 @@ UNIX系OSの場合、pip install ksjだけでgeopandasもインストールさ�
 Python 3.6以上
 
 
-依存ライブラリ
+依存パッケージ
 --------------
-本ライブラリは以下のライブラリを使用します。
+本パッケージは以下のパッケージを使用します。
 
 .. code-block::
 

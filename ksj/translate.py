@@ -9,7 +9,7 @@ import geopandas as gpd
 def get_column_table(silent=True) -> pd.DataFrame:
     """シェープファイルの列名の対応表を取得する。
 
-    `シェープファイルの列名の対応表xls <http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls>`__ を開き、全シートを結合して単一のデータフレームにして返す。
+    `シェープファイルの列名の対応表xls <http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls>`__ を開き、ブック内の全シートを結合して単一のデータフレームにして返す。
     
     Returns
     -------
@@ -21,7 +21,7 @@ def get_column_table(silent=True) -> pd.DataFrame:
     >>> import ksj
     >>> columns = ksj.get_column_table()
     >>> columns.head()
-      識別子       データ項目                         タグ名      対応番号        属性名
+         識別子       データ項目                         タグ名      対応番号        属性名
     0  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_001  3次メッシュコード  NaN
     1  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_002   3次メッシュ面積  NaN
     2  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_003    農業地域の面積  NaN

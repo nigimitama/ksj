@@ -81,6 +81,19 @@ def get_shp(url: str, path: str) -> None:
         国土数値情報ダウンロードサービスが提供するzipファイルのURL
     path : str
         保存先のパス
+    
+    Example
+    -------
+    >>> import os
+    >>> import ksj
+    >>> url = "http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_12_GML.zip"
+    >>> save_dir = "/tmp/testing"
+    >>> if not os.path.exists(save_dir):
+    ...     os.mkdir(save_dir)
+    ...
+    >>> ksj.get_shp(url, path=save_dir)
+    >>> os.listdir(save_dir)
+    ['N03-190101_12_GML.zip']
     """
     try:
         urlretrieve(url=url, filename=path)

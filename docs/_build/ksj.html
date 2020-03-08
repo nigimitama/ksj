@@ -83,11 +83,9 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ksj package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ksj.api">ksj.api module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ksj.shapefile">ksj.shapefile module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-ksj.translate">ksj.translate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-ksj">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -156,9 +154,6 @@
             
   <div class="section" id="ksj-package">
 <h1>ksj package<a class="headerlink" href="#ksj-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-ksj.api">
 <span id="ksj-api-module"></span><h2>ksj.api module<a class="headerlink" href="#module-ksj.api" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -236,6 +231,19 @@
 </ul>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ksj</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/N03-190101_12_GML.zip&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">save_dir</span> <span class="o">=</span> <span class="s2">&quot;/tmp/testing&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">save_dir</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ksj</span><span class="o">.</span><span class="n">get_shp</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">save_dir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">save_dir</span><span class="p">)</span>
+<span class="go">[&#39;N03-190101_12_GML.zip&#39;]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -284,7 +292,7 @@
 <dt id="ksj.translate.get_column_table">
 <code class="sig-prename descclassname">ksj.translate.</code><code class="sig-name descname">get_column_table</code><span class="sig-paren">(</span><em class="sig-param">silent=True</em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#ksj.translate.get_column_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>シェープファイルの列名の対応表を取得する。</p>
-<p><a class="reference external" href="http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls">シェープファイルの列名の対応表xls</a> を開き、全シートを結合して単一のデータフレームにして返す。</p>
+<p><a class="reference external" href="http://nlftp.mlit.go.jp/ksj/gml/shape_property_table.xls">シェープファイルの列名の対応表xls</a> を開き、ブック内の全シートを結合して単一のデータフレームにして返す。</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>xlsファイル</p>
@@ -297,7 +305,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">ksj</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">columns</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">get_column_table</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">columns</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">    識別子       データ項目                         タグ名      対応番号        属性名</span>
+<span class="go">     識別子       データ項目                         タグ名      対応番号        属性名</span>
 <span class="go">0  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_001  3次メッシュコード  NaN</span>
 <span class="go">1  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_002   3次メッシュ面積  NaN</span>
 <span class="go">2  A02-a  指定地域3次メッシュ  DesignatedAreaTertiaryMesh  A02a_003    農業地域の面積  NaN</span>
@@ -328,7 +336,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">url</span> <span class="o">=</span> <span class="n">urls</span><span class="p">[</span><span class="s1">&#39;zipFileUrl&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">read_shp</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">N03_001 N03_002 N03_003 N03_004 N03_007                                           geometry</span>
+<span class="go">  N03_001 N03_002 N03_003 N03_004 N03_007                                           geometry</span>
 <span class="go">0     東京都    None    None    千代田区   13101  POLYGON ((139.77287 35.70370, 139.77279 35.703...</span>
 <span class="go">1     東京都    None    None     中央区   13102  POLYGON ((139.78341 35.69645, 139.78459 35.696...</span>
 <span class="go">2     東京都    None    None      港区   13103  POLYGON ((139.77129 35.62841, 139.77128 35.628...</span>
@@ -336,7 +344,7 @@
 <span class="go">4     東京都    None    None      港区   13103  POLYGON ((139.77022 35.63199, 139.77046 35.631...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span> <span class="o">=</span> <span class="n">ksj</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">shape_gdf</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">shape_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-<span class="go">都道府県名   支庁名 郡政令都市 市区町村名 行政区域コード                                           geometry</span>
+<span class="go">  都道府県名   支庁名 郡政令都市 市区町村名 行政区域コード                                           geometry</span>
 <span class="go">0   東京都  None  None  千代田区   13101  POLYGON ((139.77287 35.70370, 139.77279 35.703...</span>
 <span class="go">1   東京都  None  None   中央区   13102  POLYGON ((139.78341 35.69645, 139.78459 35.696...</span>
 <span class="go">2   東京都  None  None    港区   13103  POLYGON ((139.77129 35.62841, 139.77128 35.628...</span>
@@ -346,9 +354,6 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="module-ksj">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ksj" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

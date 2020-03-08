@@ -1,9 +1,6 @@
 ksj package
 ===========
 
-Submodules
-----------
-
 ksj.api module
 --------------
 
@@ -28,11 +25,3 @@ ksj.translate module
    :undoc-members:
    :show-inheritance:
 
-
-Module contents
----------------
-
-.. automodule:: ksj
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -6,9 +6,9 @@
 ksj: Kokudo Suuchi Jouhou API Client
 ===============================
 
-`国土数値情報ダウンロードサービス <http://nlftp.mlit.go.jp/ksj/index.html>`__ のWeb APIを簡単に使うためのPythonライブラリです。
+`国土数値情報ダウンロードサービス <http://nlftp.mlit.go.jp/ksj/index.html>`__ のWeb APIを簡単に使うためのPythonパッケージです。
 
-データ分析での利用を想定しており、本ライブラリのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
+データ分析での利用を想定しており、本パッケージのメソッドの返り値はpandasやgeopandasのオブジェクトになります。
 
 .. toctree::
    :maxdepth: 2
