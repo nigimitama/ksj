@@ -41,6 +41,12 @@ pip install ksj
 
 ## 使用方法
 
+※ [ドキュメント](https://nigimitama.github.io/ksj/)もあります。
+
+
+
+### 読み込み
+
 ```python
 import ksj
 ```
