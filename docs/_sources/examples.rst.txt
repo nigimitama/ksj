@@ -105,7 +105,6 @@ Examples
 
     # ファイルをダウンロードし、geopandasで読み込む
     shape_gdf = ksj.read_shp(url)
-    shape_gdf.head()
 
     # 列名を日本語に変換
     shape_gdf = ksj.translate(shape_gdf)
