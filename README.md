@@ -10,40 +10,23 @@
 
 ## インストール
 
-### 必要環境
-
-- Python 3.6以上
-
-
-
-### 依存パッケージ
-
-本パッケージは以下のパッケージを使用します。
-
-    lxml>=4.4.0
-    xmljson>=0.2.0
-    xlrd>=1.2.0
-    geopandas>=0.6.0
-
-
-
-### インストール方法
+```
+pip install ksj
+```
 
 ⚠️Windowsの場合[geopandasの依存パッケージ](http://geopandas.org/install.html#installing-with-pip)がpipではインストールできないため、**先にそちらをインストールする必要があります。** ご注意ください。
 
 UNIX系OSの場合、`pip install ksj`だけでgeopandasもインストールされます。
 
-```
-pip install ksj
-```
+
+
+## ドキュメント
+
+細かな使用方法は[ksj documentation](https://nigimitama.github.io/ksj/)
 
 
 
-## 使用方法
-
-※ [ドキュメント](https://nigimitama.github.io/ksj/)もあります。
-
-
+## 使用例
 
 ### 読み込み
 

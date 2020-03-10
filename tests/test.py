@@ -3,8 +3,8 @@ import sys
 import os
 sys.path.append(os.path.abspath("."))
 import ksj
-print(ksj)
-# print(f"ksj version: {ksj.__version__}")
+print(f"ksj version: {ksj.__version__}")
+print("path:", ksj)
 
 
 class TestGetSummary(unittest.TestCase):
@@ -84,6 +84,7 @@ class TestGetShp(unittest.TestCase):
         has_zip = os.path.basename(url) in os.listdir(save_dir)
         self.assertTrue(has_zip)
 
+
 class TestReadShp(unittest.TestCase):
 
     # TODO: 複数のshpが入ったzipの場合
@@ -112,7 +113,7 @@ class TestReadShp(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_a16(self):
-        """正常系，shapefileが破損していてgeojsonしか読めないもの"""
+        """正常系、shapefileが破損していてgeojsonしか読めないもの"""
         url = 'http://nlftp.mlit.go.jp/ksj/gml/data/A16/A16-15/A16-15_01_GML.zip'
         gdf = ksj.read_shp(url)
         actual = gdf.shape
