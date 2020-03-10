@@ -41,7 +41,7 @@ Examples
     2        N03  行政区域  政策区域  2019        3       13     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...     12.20MB
     3        N03  行政区域  政策区域  2019        3       14     1  http://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2...      5.22MB
 
-指定できるパラメータの詳細については国土数値情報APIの ``公式ドキュメント <http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf>``_ （pdf）をご参照ください 。
+指定できるパラメータの詳細については国土数値情報APIの `公式ドキュメント <http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf>`_ （pdf）をご参照ください 。
 
 
 シェープファイルを取得して読み込む

@@ -86,9 +86,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id1">公開されているデータの一覧を取得する</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#url">シェープファイルのURLを取得する</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">シェープファイルを取得して読み込む</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">ファイルをダウンロードする</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">列名を日本語に変換する</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">シェープファイルを取得して読み込む</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">ファイルをダウンロードする</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">列名を日本語に変換する</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ksj.html">ksj package</a></li>
@@ -190,10 +190,10 @@
 <span class="mi">3</span>        <span class="n">N03</span>  <span class="n">行政区域</span>  <span class="n">政策区域</span>  <span class="mi">2019</span>        <span class="mi">3</span>       <span class="mi">14</span>     <span class="mi">1</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nlftp</span><span class="o">.</span><span class="n">mlit</span><span class="o">.</span><span class="n">go</span><span class="o">.</span><span class="n">jp</span><span class="o">/</span><span class="n">ksj</span><span class="o">/</span><span class="n">gml</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">N03</span><span class="o">/</span><span class="n">N03</span><span class="o">-</span><span class="mf">2.</span><span class="o">..</span>      <span class="mf">5.22</span><span class="n">MB</span>
 </pre></div>
 </div>
-<p>指定できるパラメータの詳細については国土数値情報APIの <a href="#id2"><span class="problematic" id="id3">``</span></a>公式ドキュメント &lt;<a class="reference external" href="http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf">http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf</a>&gt;``_ （pdf）をご参照ください 。</p>
+<p>指定できるパラメータの詳細については国土数値情報APIの <a class="reference external" href="http://nlftp.mlit.go.jp/ksj/api/specification_api_ksj.pdf">公式ドキュメント</a> （pdf）をご参照ください 。</p>
 </div>
-<div class="section" id="id4">
-<h2>シェープファイルを取得して読み込む<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>シェープファイルを取得して読み込む<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ksj.read_shp()</span></code> でシェープファイルをダウンロードして読み込みます。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ksj</span>
 
@@ -215,8 +215,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>ファイルをダウンロードする<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>ファイルをダウンロードする<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">ksj.get_shp()</span></code> でシェープファイルが入ったzipファイルを指定した場所にダウンロードします。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ksj</span>
 
@@ -229,8 +229,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>列名を日本語に変換する<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>列名を日本語に変換する<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>取得したシェープファイルの列名は <code class="docutils literal notranslate"><span class="pre">N03_001</span></code> のようなコードになっています。
 これらのコードを日本語の列名へと変換したい場合は <code class="docutils literal notranslate"><span class="pre">ksj.translate()</span></code> が役に立つはずです。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ksj</span>
