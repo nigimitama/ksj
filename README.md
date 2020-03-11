@@ -1,6 +1,6 @@
 # ksj
 
-[![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)[![pypi](https://img.shields.io/badge/pypi-1.0.0-blue.svg)](https://pypi.org/project/ksj/)
+[![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)[![pypi](README.assets/pypi-1.0.0-blue.svg)](https://pypi.org/project/ksj/)
 
 
 
