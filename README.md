@@ -1,6 +1,8 @@
 # ksj
 
-[![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)
+[![CircleCI](https://circleci.com/gh/nigimitama/ksj/tree/master.svg?style=svg)](https://circleci.com/gh/nigimitama/ksj/tree/master)[![pypi](https://img.shields.io/badge/pypi-1.0.0-blue.svg)](https://pypi.org/project/ksj/)
+
+
 
 [国土数値情報ダウンロードサービス](http://nlftp.mlit.go.jp/ksj/index.html)のWeb APIを簡単に扱うためのPythonパッケージです。
 
